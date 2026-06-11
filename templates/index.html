@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReClip — Free Media Downloader</title>
+  <title>WanoClip — Free Media Downloader</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f1eb;
-      --fg: #3a3a38;
-      --accent: #e85d2a;
-      --accent-hover: #d04e1f;
-      --muted: #9c9889;
-      --card: #fff;
-      --card-border: #e2ded6;
-      --success: #2d8a4e;
-      --error: #c43d3d;
+      --bg: #0d0d0d;
+      --fg: #e8e8e8;
+      --accent: #7c6af7;
+      --accent-hover: #6a59e0;
+      --muted: #5a5a5a;
+      --card: #181818;
+      --card-border: #2a2a2a;
+      --success: #4ade80;
+      --error: #f87171;
       --radius: 14px;
-      --shimmer: linear-gradient(90deg, #ebe8e2 25%, #f0ede7 50%, #ebe8e2 75%);
+      --shimmer: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,16 +32,6 @@
       overflow-x: hidden;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      opacity: 0.03;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 128px;
-    }
-
     .page {
       max-width: 620px;
       margin: 0 auto;
@@ -50,19 +40,19 @@
 
     .brand { margin-bottom: 48px; }
     .brand h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 4.2rem;
-      font-weight: 400;
-      letter-spacing: -0.03em;
+      font-family: 'DM Mono', monospace;
+      font-size: 3.2rem;
+      font-weight: 500;
+      letter-spacing: -0.04em;
       line-height: 1;
       color: var(--fg);
     }
-    .brand h1 em { font-style: italic; color: var(--accent); }
+    .brand h1 span { color: var(--accent); }
     .brand p {
-      margin-top: 10px;
-      font-size: 0.78rem;
+      margin-top: 12px;
+      font-size: 0.72rem;
       color: var(--muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
@@ -83,7 +73,7 @@
     }
     textarea:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(232, 93, 42, 0.08);
+      box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.12);
     }
     textarea::placeholder { color: var(--muted); }
 
@@ -175,7 +165,6 @@
       object-fit: cover;
       display: block;
     }
-    /* No-thumbnail icon */
     .card-thumb .no-thumb {
       width: 100%;
       height: 100%;
@@ -190,7 +179,6 @@
       opacity: 0.5;
     }
 
-    /* Shimmer skeleton for loading state */
     .card-thumb.loading {
       background: var(--shimmer);
       background-size: 200% 100%;
@@ -219,8 +207,9 @@
       justify-content: center;
     }
     .card-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 500;
       line-height: 1.3;
       color: var(--fg);
       margin-bottom: 2px;
@@ -257,10 +246,10 @@
       letter-spacing: 0.03em;
       text-transform: uppercase;
     }
-    .card-dl-btn:hover { background: #2d2d2a; }
+    .card-dl-btn:hover { background: #ffffff; }
     .card-dl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .card-dl-btn.done { background: var(--success); color: #fff; }
-    .card-dl-btn.error { background: var(--error); color: #fff; }
+    .card-dl-btn.done { background: var(--success); color: #000; }
+    .card-dl-btn.error { background: var(--error); color: #000; }
 
     .card-status {
       font-size: 0.68rem;
@@ -284,14 +273,13 @@
     .q-chip.active {
       border-color: var(--fg);
       color: var(--fg);
-      background: rgba(26,26,24,0.04);
+      background: rgba(232,232,232,0.06);
     }
     .q-chip:hover:not(.active) { border-color: var(--muted); }
 
-    /* Error card */
     .card.card-error {
-      border-color: rgba(196, 61, 61, 0.2);
-      background: rgba(196, 61, 61, 0.03);
+      border-color: rgba(248, 113, 113, 0.2);
+      background: rgba(248, 113, 113, 0.04);
     }
     .card-error-icon {
       width: 100%;
@@ -299,7 +287,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(196, 61, 61, 0.08);
+      background: rgba(248, 113, 113, 0.08);
       color: var(--error);
     }
     .card-error-icon svg {
@@ -319,7 +307,6 @@
       margin-top: 4px;
     }
 
-    /* Download all bar */
     .dl-all-bar {
       display: flex;
       gap: 10px;
@@ -340,7 +327,7 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    .dl-all-btn:hover { background: #2d2d2a; }
+    .dl-all-btn:hover { background: #ffffff; }
     .dl-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     .spin {
@@ -364,9 +351,8 @@
       line-height: 1.8;
     }
 
-    /* Mobile */
     @media (max-width: 500px) {
-      .brand h1 { font-size: 3rem; }
+      .brand h1 { font-size: 2.4rem; }
       .page { padding: 40px 16px 60px; }
       .card { flex-direction: column; gap: 10px; }
       .card-thumb {
@@ -383,7 +369,7 @@
 <body>
   <div class="page">
     <div class="brand">
-      <h1>Re<em>Clip</em></h1>
+      <h1>Wano<span>Clip</span></h1>
       <p>Free media downloader</p>
     </div>
 
